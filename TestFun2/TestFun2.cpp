@@ -115,32 +115,10 @@ void intSort(int data[], int len)
 	}
 }
 
-int _tmain(int argc, _TCHAR* argv[])
+int findContinuousIntData(int data[], int start[], int end[], int arrayLen)
 {
-	char input[maxLen];
-	memset(input,0,sizeof(input));
-
-	cout<<"Please input data with ',' separator:"<<endl;
-	cin>>input;
-	char afterConvert[maxLen][chLen];
-	for(int i=0; i<maxLen; i++)
-		memset(afterConvert[i],0,sizeof(afterConvert[i]));
-	int arrayLen = string2Array(input, afterConvert, ',');
-	int data[maxLen];
-	for(int i = 0; i < arrayLen; i++)
-	{
-		cout<<i<<":"<<afterConvert[i]<<endl;
-		data[i] = atoi(afterConvert[i]);
-	}
-
-	intSort(data,arrayLen);
-	for(int i = 0; i < arrayLen; i++)
-		cout<<data[i]<<endl;
-	
-	//找出所有连续数的起止点和数量
-	int start[maxLen] = {0}, end[maxLen] = {0}, count = 1;
+	int count = 1;
 	bool finished = false;
-	int len = arrayLen;
 	int startIndex, endIndex;
 	do
 	{
@@ -193,6 +171,35 @@ int _tmain(int argc, _TCHAR* argv[])
 		}
 		
 	}while(!finished);
+
+	return count;
+}
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	char input[maxLen];
+	memset(input,0,sizeof(input));
+
+	cout<<"Please input data with ',' separator:"<<endl;
+	cin>>input;
+	char afterConvert[maxLen][chLen];
+	for(int i=0; i<maxLen; i++)
+		memset(afterConvert[i],0,sizeof(afterConvert[i]));
+	int arrayLen = string2Array(input, afterConvert, ',');
+	int data[maxLen];
+	for(int i = 0; i < arrayLen; i++)
+	{
+		cout<<i<<":"<<afterConvert[i]<<endl;
+		data[i] = atoi(afterConvert[i]);
+	}
+
+	intSort(data,arrayLen);
+	for(int i = 0; i < arrayLen; i++)
+		cout<<data[i]<<endl;
+	
+	//找出所有连续数的起止点和数量
+	int start[maxLen] = {0}, end[maxLen] = {0}, count = 1;
+	count = findContinuousIntData(data, start, end, arrayLen);
 
 	if(0 == count)
 	{
